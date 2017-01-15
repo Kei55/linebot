@@ -44,7 +44,7 @@ foreach ($events as $event) {
 
   if($startbot == "ranran" or $startbot == "(´･ω･`)" or $startbot == "らん豚" or $startbot == "linebot" or $startbot == "ranpig")
   {
-    if($service == 'youtube')
+    if($service == 'youtube' and isset($word))
     {
       $client = new Google_Client();
       $client->setDeveloperKey($DEVELOPER_KEY);
@@ -89,7 +89,7 @@ foreach ($events as $event) {
       }
     }
 
-    else if($service == 'image' || $service == '画像'){
+    else if(($service == 'image' || $service == '画像') and isset($word)){
 
       $maxResults = 1;
       if(isset($pieces[3]) and 1 < $pieces[3] and $pieces[3] < 20){
@@ -111,7 +111,7 @@ foreach ($events as $event) {
       $bot->replyText($event->getReplyToken(), $sendtext);
     }
 
-    else if($service == 'search' || $service == '検索'){
+    else if($service == 'search' or $service == '検索' or isset($word)){
 
       $maxResults = 1;  
       if(isset($pieces[3]) && 1 < $pieces[3] && $pieces[3] < 20){
