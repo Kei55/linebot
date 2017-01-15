@@ -32,7 +32,7 @@ foreach ($events as $event) {
     error_log('Non text message has come');
     continue;
   }
-  $text = $event->getText();
+  $text = mb_convert_kana($event->getText(), 'as', 'UTF-8');
   $pieces = explode(" ", $text);
   $startbot = $pieces[0];
   // $botorder = array("ranran","(´･ω･`)","らん豚","linebot","ranpig");
@@ -41,7 +41,6 @@ foreach ($events as $event) {
   $sendtext = '';
   // $ranranmsg = array("(´･ω･`)らんらん♪","(´･ω･`)やんやん？","(´･ω･`)なになに","(´･ω･`)はあまじはあ","(´･ω･`)くそげ","(´･ω･`)らんらんは豚だから難しいことはわからないよ","(´･ω･`)なにそれ怖い");
 
-  // if($startbot == "linebot")
   if($startbot == "ranran" or $startbot == "(´･ω･`)" or $startbot == "らん豚" or $startbot == "linebot" or $startbot == "ranpig")
   {
     if($service == 'youtube')
@@ -52,13 +51,14 @@ foreach ($events as $event) {
 
       $maxResults = 1;
       $order = "date";
-      if(isset($pieces[3]) && 1 < $pieces[3] && $pieces[3] < 20){
+      if(isset($pieces[3]) and 1 < $pieces[3] and $pieces[3] < 20)
+      {
         $maxResults = $pieces[3];
       }
-      // if($pieces[4] == "date" or $pieces[4] == "rating" or $pieces[4] == "title" or $pieces[4] == "viewCount" or $pieces[4] == "videoCount" or $pieces[4] == "relevance")
-      // {
-      //   $order = $pieces[4];
-      // }
+      if($pieces[4] == "date" or $pieces[4] == "rating" or $pieces[4] == "title" or $pieces[4] == "viewCount" or $pieces[4] == "videoCount" or $pieces[4] == "relevance")
+      {
+        $order = $pieces[4];
+      }
 
       try {
       $searchResponse = $youtube->search->listSearch('id,snippet', array(
@@ -77,22 +77,21 @@ foreach ($events as $event) {
             $i++;
           break;
         }
-
       }
 
       $bot->replyText($event->getReplyToken(), $sendtext);
 
       } catch (Google_ServiceException $e) {
-        $bot->replyText($event->getReplyToken(), "error");
+        $bot->replyText($event->getReplyToken(), "(´･ω･`)らんらんは豚だから難しいことはわからないよ");
       } catch (Google_Exception $e) {
-        $bot->replyText($event->getReplyToken(), "error");
+        $bot->replyText($event->getReplyToken(), "(´･ω･`)らんらんは豚だから難しいことはわからないよ");
       }
     }
 
     else if($service == 'image' || $service == '画像'){
 
       $maxResults = 1;
-      if(isset($pieces[3]) && 1 < $pieces[3] && $pieces[3] < 20){
+      if(isset($pieces[3]) and 1 < $pieces[3] and $pieces[3] < 20){
         $maxResults = $pieces[3];
       }
       //検索エンジンID
@@ -111,7 +110,7 @@ foreach ($events as $event) {
       $bot->replyText($event->getReplyToken(), $sendtext);
     }
 
-    else if($service == 'search' || $service =='検索'){
+    else if($service == 'search' || $service == '検索'){
 
       $maxResults = 1;  
       if(isset($pieces[3]) && 1 < $pieces[3] && $pieces[3] < 20){
@@ -134,12 +133,12 @@ foreach ($events as $event) {
     }
 
     else{
-      $bot->replyText($event->getReplyToken(), "(´･ω･`)らんらんは豚だから難しいことはわからないよ");
+      $bot->replyText($event->getReplyToken(), "(´･ω･`)やんやん？");
     }
   }
 
   else {
-    $bot->replyText($event->getReplyToken(), $text);
+    // $bot->replyText($event->getReplyToken(), $text);
   }
 }
 
