@@ -35,11 +35,13 @@ foreach ($events as $event) {
   $text = $event->getText();
   $pieces = explode(" ", $text);
   $startbot = $pieces[0];
+  $botorder = array("ranran","(´･ω･`)","らん豚","linebot","ranpig");
   $word = $pieces[1];
   $service = $pieces[2];
   $sendtext = '';
+  $ranranmsg = array("(´･ω･`)らんらん♪","(´･ω･`)やんやん？","(´･ω･`)なになに","(´･ω･`)はあまじはあ","(´･ω･`)くそげ","(´･ω･`)らんらんは豚だから難しいことはわからないよ","(´･ω･`)なにそれ怖い");
 
-  if($startbot == '(´･ω･`)'){
+  if($startbot == "ranran"　|| $startbot == "(´･ω･`)" || $startbot == "らん豚" || $starbot == "linebot"){
     if($service == 'youtube'){
   // if($startbot == '(´･ω･`)' || $startbot == 'ranran' || $startbot == 'らんらん' || $startbot == 'ranpig' || $startbot == 'linebot'){
   //   if($service == 'youtube' || $startbot == 'よつべ'){
@@ -53,7 +55,7 @@ foreach ($events as $event) {
       if(isset($pieces[3]) && 1 < $pieces[3] && $pieces[3] < 20){
         $maxResults = $pieces[3];
       }
-      if(isset($pieces[4]) && ($pieces[4] == 'date' || $pieces[4] == 'rating' || $pieces[4] == 'title' || $pieces[4] == 'viewCount' || $pieces[4] == 'videoCount' || $pieces[4] == 'relevance') )
+      if(isset($pieces[4]) && ($pieces[4] == 'date' || $pieces[4] == 'rating' || $pieces[4] == 'title' || $pieces[4] == 'viewCount' || $pieces[4] == 'videoCount' || $pieces[4] == 'relevance'))
       {
         $order = $pieces[4];
       }
@@ -64,7 +66,7 @@ foreach ($events as $event) {
             'maxResults' => $maxResults, //検索動画数
             'order' => $order // 順番
           ));
-      
+
       $i = 1;
       foreach ($searchResponse['items'] as $searchResult) {
         switch ($searchResult['id']['kind']) {
