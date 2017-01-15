@@ -33,7 +33,7 @@ foreach ($events as $event) {
     continue;
   }
   $text = $event->getText();
-  // $text = mb_convert_kana($text, 's');
+  $text = mb_convert_kana($text, 's');
   $pieces = explode(" ", $text);
   $startbot = $pieces[0];
   // $botorder = array("ranran","(´･ω･`)","らん豚","linebot","ranpig");
