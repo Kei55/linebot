@@ -1,6 +1,10 @@
 <?php
 
 require_once __DIR__ . '/vendor/autoload.php';
+require_once '/vendor/google-api-php-client/src/Google_Client.php';
+require_once '/vendor/google-api-php-client/src/contrib/Google_YouTubeService.php';
+
+$DEVELOPER_KEY_YOUTUBE = 'AIzaSyBN8gvRSd8k_NuqBKF4ITdGxbDfLnNocuw';
 
 $httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient(getenv('CHANNEL_ACCESS_TOKEN'));
 $bot = new \LINE\LINEBot($httpClient, ['channelSecret' => getenv('CHANNEL_SECRET')]);
@@ -35,7 +39,29 @@ foreach ($events as $event) {
 
   if($text == "(´･ω･`)" || $text == "ranran"){
     if($service == "youtube" || $service == "よつべ"){
-      $bot->replyText($event->getReplyToken(), $word.$service);
+
+      $client = new Google_Client();
+      $client->setDeveloperKey($DEVELOPER_KEY_YOUTUBE);
+      $youtube = new Google_YoutubeService($client);
+
+      $searchResponse = $youtube->search->listSearch('id,snippet', array(
+            'q' => $word,  //検索キーワード
+            'maxResults' => 1, //検索動画数
+            'order' => 'date' // 順番
+          ));
+
+      $sendtext = '';
+
+      foreach ($searchResponse['items'] as $searchResult) {
+        switch ($searchResult['id']['kind']) {
+          case 'youtube#video':
+            $sendtext .= $searchResult['snippet']['title'] . "\n";
+            $sendtext .= "http://www.youtube.com/watch?v=" . $searchResult['id']['videoId'] . "\n";
+          break;
+        }
+      }
+
+      $bot->replyText($event->getReplyToken(), $sendtext);
     }
   }
   else{
