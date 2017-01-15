@@ -104,17 +104,17 @@ foreach ($events as $event) {
       foreach ($obj->items as $value) {
         $sendtext .= $value->title . "\n";
         $sendtext .= $value->link . "\n";
-        $imagePath .= $value->link;
+        // $imagePath .= $value->link;
 
         
-        $data = file_get_contents($imagePath);
-        file_put_contents('./download/dl.jpg',$data);
-        $pic = './download/dl.jpg'
-        $post_data = makeImagePostData($pic);
+        // $data = file_get_contents($imagePath);
+        // file_put_contents('./download/img.png',$data);
+        // $pic = './download/img.png';
+        // $post_data = makeImagePostData($pic);
       }
 
-      // $bot->replyText($event->getReplyToken(), $sendtext);
-      $bot->replyText($event->getReplyToken(), $post_data);
+      $bot->replyText($event->getReplyToken(), $sendtext);
+      // $bot->replyText($event->getReplyToken(), $post_data);
     }
 
     else{
