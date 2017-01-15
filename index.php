@@ -37,11 +37,11 @@ foreach ($events as $event) {
   $startbot = $pieces[0];
   $word = $pieces[1];
   $service = $pieces[2];
-  
+
   $sendtext = '';
 
 
-  if($startbot == "ranran" or $startbot == "(´･ω･`)" or $startbot == "らん豚" or $startbot == "linebot" or $startbot == "ranpig" or $startbot == "らんらん")
+  if($startbot == "ranran" or $startbot == "(´･ω･`)" or $startbot == "らん豚" or $startbot == "linebot" or $startbot == "ranpig" or $startbot == "らんらん" or $startbot == "bot" or $startbot == "Linebot" or $startbot == "Bot" or $startbot == "Ranran" or $startbot == "Ranpig")
   {
     if(($service == 'youtube' or $service == '動画') and isset($word))
     {
