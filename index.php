@@ -35,31 +35,31 @@ foreach ($events as $event) {
   $pieces = explode(" ", $text);
   $word = $pieces[1];
   $service = $pieces[2];
-  $text = $pieces[0];
+  $ranbot = $pieces[0];
 
-  if($text == "(´･ω･`)" || $text == "ranran"){
+  if($ranbot == "(´･ω･`)" || $ranbot == "ranran"){
     if($service == "youtube" || $service == "よつべ"){
 
-      $client = new Google_Client();
-      $client->setDeveloperKey($DEVELOPER_KEY_YOUTUBE);
-      $youtube = new Google_YoutubeService($client);
+      // $client = new Google_Client();
+      // $client->setDeveloperKey($DEVELOPER_KEY_YOUTUBE);
+      // $youtube = new Google_YoutubeService($client);
 
-      $searchResponse = $youtube->search->listSearch('id,snippet', array(
-            'q' => $word,  //検索キーワード
-            'maxResults' => 5, //検索動画数
-            'order' => 'date' // 順番
-          ));
+      // $searchResponse = $youtube->search->listSearch('id,snippet', array(
+      //       'q' => $word,  //検索キーワード
+      //       'maxResults' => 5, //検索動画数
+      //       'order' => 'date' // 順番
+      //     ));
 
-      $sendtext = '';
+      // $sendtext = '';
 
-      foreach ($searchResponse['items'] as $searchResult) {
-        switch ($searchResult['id']['kind']) {
-          case 'youtube#video':
-            $sendtext .= $searchResult['snippet']['title'] . "\n";
-            $sendtext .= "http://www.youtube.com/watch?v=" . $searchResult['id']['videoId'] . "\n";
-            break;
-        }
-      }
+      // foreach ($searchResponse['items'] as $searchResult) {
+      //   switch ($searchResult['id']['kind']) {
+      //     case 'youtube#video':
+      //       $sendtext .= $searchResult['snippet']['title'] . "\n";
+      //       $sendtext .= "http://www.youtube.com/watch?v=" . $searchResult['id']['videoId'] . "\n";
+      //     break;
+      //   }
+      // }
 
       $bot->replyText($event->getReplyToken(), $word." ".$service);
     }
