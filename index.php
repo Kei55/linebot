@@ -32,7 +32,8 @@ foreach ($events as $event) {
     error_log('Non text message has come');
     continue;
   }
-  $text = mb_convert_kana($event->getText(), 'as', 'UTF-8');
+  $text = $event->getText();
+  $text = mb_convert_kana($text, 's');
   $pieces = explode(" ", $text);
   $startbot = $pieces[0];
   // $botorder = array("ranran","(´･ω･`)","らん豚","linebot","ranpig");
@@ -137,9 +138,9 @@ foreach ($events as $event) {
     }
   }
 
-  else {
-    // $bot->replyText($event->getReplyToken(), $text);
-  }
+  // else {
+  //   // $bot->replyText($event->getReplyToken(), $text);
+  // }
 }
 
  ?>
