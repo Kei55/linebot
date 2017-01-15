@@ -32,13 +32,13 @@ foreach ($events as $event) {
     continue;
   }
   $text = $event->getText();
-  // $pieces = explode(" ", $text);
-  // $word = $pieces[1];
-  // $service = $pieces[2];
-  // $ranbot = $pieces[0];
+  $pieces = explode(" ", $text);
+  $word = $pieces[1];
+  $service = $pieces[2];
+  $ranbot = $pieces[0];
 
-  // if($ranbot == "(´･ω･`)" || $ranbot == "ranran"){
-  //   if($service == "youtube" || $service == "よつべ"){
+  if($ranbot == "(´･ω･`)" || $ranbot == "ranran"){
+    if($service == "youtube" || $service == "よつべ"){
 
       $client = new Google_Client();
       $client->setDeveloperKey($DEVELOPER_KEY_YOUTUBE);
@@ -68,16 +68,16 @@ foreach ($events as $event) {
         $bot->replyText($event->getReplyToken(), "error");
       } catch (Google_Exception $e) {
         $bot->replyText($event->getReplyToken(), "error");
+      }
     }
-  //   }
 
-  //   else{
-  //     $bot->replyText($event->getReplyToken(), "error");
-  //   }
-  // }
-  // else{
-  //   $bot->replyText($event->getReplyToken(), $text);
-  // }
+    else{
+      $bot->replyText($event->getReplyToken(), "error");
+    }
+  }
+  else{
+    $bot->replyText($event->getReplyToken(), $text);
+  }
 }
 
  ?>
