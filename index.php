@@ -52,7 +52,7 @@ foreach ($events as $event) {
       $order = 'date';
       if(isset($pieces[3]))
       {
-        $num = mb_convert_kana($pieces[3], "a");
+        $num = (int)(mb_convert_kana((string)$pieces[3], "a"));
         if(1 < $num and $num < 20)
         {
           $maxResults = $num;
