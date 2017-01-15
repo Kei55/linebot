@@ -37,12 +37,15 @@ foreach ($events as $event) {
   $startbot = $pieces[0];
   $word = $pieces[1];
   $service = $pieces[2];
+  $sendtext = '';
 
   $maxResults = 5;
   $order = 'date';
 
-  if($startbot == '(´･ω･`)' || 'ranran' || 'らんらん' || 'ranpig' || 'linebot'){
-    if($service == 'youtube' || 'よつべ'){
+  if($startbot == '(´･ω･`)'){
+    if($service == 'youtube'){
+  // if($startbot == '(´･ω･`)' || 'ranran' || 'らんらん' || 'ranpig' || 'linebot'){
+  //   if($service == 'youtube' || 'よつべ'){
 
       $client = new Google_Client();
       $client->setDeveloperKey($DEVELOPER_KEY);
@@ -64,7 +67,7 @@ foreach ($events as $event) {
             'order' => $order // 順番
           ));
 
-      $sendtext = '';
+      
       $i = 1;
 
       foreach ($searchResponse['items'] as $searchResult) {
@@ -87,7 +90,8 @@ foreach ($events as $event) {
         $bot->replyText($event->getReplyToken(), "error");
       }
     }
-    else{
+
+    else if($service == 'image'){
       //検索エンジンID
       $cx = "011043179743664306189:yvmhmv_3uqo";
       // 検索用URL
@@ -103,9 +107,13 @@ foreach ($events as $event) {
 
       $bot->replyText($event->getReplyToken(), $sendtext);
     }
+
+    else{
+      $bot->replyText($event->getReplyToken(), "(´･ω･`)らんらん？");
+    }
   }
   else {
-    $bot->replyText($event->getReplyToken(), "(´･ω･`)らんらん？");
+    $bot->replyText($event->getReplyToken(), $text);
   }
 }
 
