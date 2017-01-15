@@ -57,7 +57,7 @@ foreach ($events as $event) {
           case 'youtube#video':
             $sendtext .= $searchResult['snippet']['title'] . "\n";
             $sendtext .= "http://www.youtube.com/watch?v=" . $searchResult['id']['videoId'] . "\n";
-          break;
+            break;
         }
       }
 
