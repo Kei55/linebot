@@ -3,8 +3,10 @@
 require_once __DIR__ . '/vendor/autoload.php';
 require_once 'google-api-php-client/src/Google_Client.php';
 require_once 'google-api-php-client/src/contrib/Google_YouTubeService.php';
+require_once 'TwitterAppOAuth.php';
 
-$DEVELOPER_KEY_YOUTUBE = 'AIzaSyBN8gvRSd8k_NuqBKF4ITdGxbDfLnNocuw';
+$DEVELOPER_KEY = 'AIzaSyBN8gvRSd8k_NuqBKF4ITdGxbDfLnNocuw';
+
 
 $httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient(getenv('CHANNEL_ACCESS_TOKEN'));
 $bot = new \LINE\LINEBot($httpClient, ['channelSecret' => getenv('CHANNEL_SECRET')]);
@@ -45,18 +47,18 @@ foreach ($events as $event) {
     if($service == 'youtube' || 'よつべ'){
 
       $client = new Google_Client();
-      $client->setDeveloperKey($DEVELOPER_KEY_YOUTUBE);
+      $client->setDeveloperKey($DEVELOPER_KEY);
       $youtube = new Google_YoutubeService($client);
 
 
-      if(!empty($pieces[3]) && 1 <$pieces[3] && $pieces[3] < 20){
+      if(isset($pieces[3]) && 1 < $pieces[3] && $pieces[3] < 20){
         $maxResults = $pieces[3];
       }
-      if(!empty($pieces[4]) && $pieces[4] == 'date' || 'rating' || 'title' || 'viewCount' || 'videoCount' || 'relevance')
+      if(isset($pieces[4]) && ($pieces[4] == 'date' || 'rating' || 'title' || 'viewCount' || 'videoCount' || 'relevance') )
       {
         $order = $pieces[4];
       }
-      
+
       try {
       $searchResponse = $youtube->search->listSearch('id,snippet', array(
             'q' => $text,  //検索キーワード
@@ -68,14 +70,15 @@ foreach ($events as $event) {
       $i = 1;
 
       foreach ($searchResponse['items'] as $searchResult) {
-        $i++;
         switch ($searchResult['id']['kind']) {
           case 'youtube#video':
             $sendtext .= $i.'.';
             $sendtext .= $searchResult['snippet']['title'] . "\n";
             $sendtext .= "http://www.youtube.com/watch?v=" . $searchResult['id']['videoId'] . "\n";
+            $i++;
           break;
         }
+
       }
 
       $bot->replyText($event->getReplyToken(), $sendtext);
@@ -86,10 +89,28 @@ foreach ($events as $event) {
         $bot->replyText($event->getReplyToken(), "error");
       }
     }
+    else if($service == 'image' || '画像'){
+      //検索エンジンID
+      $cx = "011043179743664306189:yvmhmv_3uqo";
+      // 検索用URL
+      $url = "https://www.googleapis.com/customsearch/v1?q=" . $word . "&key=" . $DEVELOPER_KEY . "&cx=" . $cx ."&searchType=image" . "&num=1";
+      $json = file_get_contents($url, true);
 
+      $obj = json_decode($json, false);
+      $sendtext = "";
+      foreach ($obj->items as $value) {
+        $sendtext .= $value->title . "\n";
+        $sendtext .= $value->link . "\n";
+      }
+
+      $bot->replyText($event->getReplyToken(), $sendtext);
+    }
     else{
       $bot->replyText($event->getReplyToken(), "error");
     }
+  }
+  else {
+    $bot->replyText($event->getReplyToken(), "(´･ω･`)らんらん？");
   }
 }
 
