@@ -1,8 +1,8 @@
 <?php
 
 require_once __DIR__ . '/vendor/autoload.php';
-require_once '/vendor/google-api-php-client/src/Google_Client.php';
-require_once '/vendor/google-api-php-client/src/contrib/Google_YouTubeService.php';
+// require_once '/vendor/google-api-php-client/src/Google_Client.php';
+// require_once '/vendor/google-api-php-client/src/contrib/Google_YouTubeService.php';
 
 $DEVELOPER_KEY_YOUTUBE = 'AIzaSyBN8gvRSd8k_NuqBKF4ITdGxbDfLnNocuw';
 
