@@ -35,16 +35,14 @@ foreach ($events as $event) {
   $text = $event->getText();
   $pieces = explode(" ", $text);
   $startbot = $pieces[0];
-  $botorder = array("ranran","(´･ω･`)","らん豚","linebot","ranpig");
+  // $botorder = array("ranran","(´･ω･`)","らん豚","linebot","ranpig");
   $word = $pieces[1];
   $service = $pieces[2];
   $sendtext = '';
-  $ranranmsg = array("(´･ω･`)らんらん♪","(´･ω･`)やんやん？","(´･ω･`)なになに","(´･ω･`)はあまじはあ","(´･ω･`)くそげ","(´･ω･`)らんらんは豚だから難しいことはわからないよ","(´･ω･`)なにそれ怖い");
+  // $ranranmsg = array("(´･ω･`)らんらん♪","(´･ω･`)やんやん？","(´･ω･`)なになに","(´･ω･`)はあまじはあ","(´･ω･`)くそげ","(´･ω･`)らんらんは豚だから難しいことはわからないよ","(´･ω･`)なにそれ怖い");
 
-  if($startbot == "ranran"　|| $startbot == "(´･ω･`)" || $startbot == "らん豚" || $starbot == "linebot"){
+  if($startbot == "ranran"　|| $startbot == "(´･ω･`)" || $startbot == "らん豚" || $startbot == "linebot" || $startbot == "ranpig"){
     if($service == 'youtube'){
-  // if($startbot == '(´･ω･`)' || $startbot == 'ranran' || $startbot == 'らんらん' || $startbot == 'ranpig' || $startbot == 'linebot'){
-  //   if($service == 'youtube' || $startbot == 'よつべ'){
 
       $client = new Google_Client();
       $client->setDeveloperKey($DEVELOPER_KEY);
@@ -55,7 +53,7 @@ foreach ($events as $event) {
       if(isset($pieces[3]) && 1 < $pieces[3] && $pieces[3] < 20){
         $maxResults = $pieces[3];
       }
-      if(isset($pieces[4]) && ($pieces[4] == 'date' || $pieces[4] == 'rating' || $pieces[4] == 'title' || $pieces[4] == 'viewCount' || $pieces[4] == 'videoCount' || $pieces[4] == 'relevance'))
+      if(isset($pieces[4]) && ($pieces[4] == "date" || $pieces[4] == "rating" || $pieces[4] == "title" || $pieces[4] == "viewCount" || $pieces[4] == "videoCount" || $pieces[4] == "relevance"))
       {
         $order = $pieces[4];
       }
@@ -132,7 +130,7 @@ foreach ($events as $event) {
       $bot->replyText($event->getReplyToken(), $sendtext);
     }
     else{
-      $bot->replyText($event->getReplyToken(), "(´･ω･`)らんらん？");
+      $bot->replyText($event->getReplyToken(), "(´･ω･`)らんらんは豚だから難しいことはわからないよ");
     }
   }
 
@@ -141,14 +139,4 @@ foreach ($events as $event) {
   }
 }
 
-
-function makeImagePostData($imagePath){
-  $response_format_text = [
-    "type" => "image",
-    "originalContentUrl" => $imagePath,
-    "previewImageUrl" => $imagePath
-  ];
-
-  return $response_format_text;
-}
  ?>
