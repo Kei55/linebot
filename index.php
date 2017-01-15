@@ -40,7 +40,7 @@ foreach ($events as $event) {
   $sendtext = '';
 
 
-  if($startbot == "ranran" or $startbot == "(´･ω･`)" or $startbot == "らん豚" or $startbot == "linebot" or $startbot == "ranpig")
+  if($startbot == "ranran" or $startbot == "(´･ω･`)" or $startbot == "らん豚" or $startbot == "linebot" or $startbot == "ranpig" or $startbot == "らんらん")
   {
     if(($service == 'youtube' or $service == '動画') and isset($word))
     {
@@ -52,7 +52,7 @@ foreach ($events as $event) {
       $order = 'date';
       if(isset($pieces[3]))
       {
-        $num = (int)(mb_convert_kana((string)$pieces[3], "a"));
+        $num = intval(mb_convert_kana(strval($pieces[3]), "a"));
         if(1 < $num and $num < 20)
         {
           $maxResults = $num;
