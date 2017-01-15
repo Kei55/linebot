@@ -37,8 +37,8 @@ foreach ($events as $event) {
   $word = $pieces[1];
   $service = $pieces[2];
 
-  if($bot == "(´･ω･`)" || $bot == "ranran" || $bot == "らんらん" || $bot == "ranpig" || $bot == "linebot"){
-    if($service == "youtube" || $service == "よつべ"){
+  if($bot == '(´･ω･`)' or $bot == 'ranran' or $bot == 'らんらん' or $bot == 'ranpig' or $bot == 'linebot'){
+    if($service == 'youtube' or $service == 'よつべ'){
 
       $client = new Google_Client();
       $client->setDeveloperKey($DEVELOPER_KEY_YOUTUBE);
