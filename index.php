@@ -30,7 +30,17 @@ foreach ($events as $event) {
   $text = $event->getText();
   $pieces = explode(" ", $text);
   $word = $pieces[1];
-  $bot->replyText($event->getReplyToken(), $word);
+  $service = $pieces[2];
+  $text = $pieces[0];
+
+  if($text == "(´･ω･`)" || $text == "ranran"){
+    if($service == "youtube" || $service == "よつべ"){
+      $bot->replyText($event->getReplyToken(), $word.$service);
+    }
+  }
+  else{
+    $bot->replyText($event->getReplyToken(), $text);
+  }
 }
 
  ?>
