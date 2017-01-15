@@ -33,8 +33,7 @@ foreach ($events as $event) {
     continue;
   }
   $text = $event->getText();
-  $text_s = mb_convert_kana($text, "s");
-  $pieces = explode(" ", $text_s);
+  $pieces = preg_split('/[\s|\x{3000}]+/u', $text);
   $startbot = $pieces[0];
   // $botorder = array("ranran","(´･ω･`)","らん豚","linebot","ranpig");
   $word = $pieces[1];
