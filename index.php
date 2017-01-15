@@ -51,12 +51,11 @@ foreach ($events as $event) {
       $youtube = new Google_YoutubeService($client);
 
       $maxResults = 1;
-      $order = 'date';
+      $order = "date";
       if(isset($pieces[3]) && 1 < $pieces[3] && $pieces[3] < 20){
         $maxResults = $pieces[3];
       }
       if($pieces[4] == "date" or $pieces[4] == "rating" or $pieces[4] == "title" or $pieces[4] == "viewCount" or $pieces[4] == "videoCount" or $pieces[4] == "relevance")
-      // if(isset($pieces[4]))
       {
         $order = $pieces[4];
       }
