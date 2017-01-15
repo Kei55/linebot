@@ -33,11 +33,11 @@ foreach ($events as $event) {
   }
   $text = $event->getText();
   $pieces = explode(" ", $text);
+  $bot = $pieces[0];
   $word = $pieces[1];
   $service = $pieces[2];
-  $ranbot = $pieces[0];
 
-  if($ranbot == "(´･ω･`)" || $ranbot == "ranran"){
+  if($bot == "(´･ω･`)" || $bot == "ranran" || $bot == "らんらん" || $bot == "ranpig" || $bot == "linebot"){
     if($service == "youtube" || $service == "よつべ"){
 
       $client = new Google_Client();
