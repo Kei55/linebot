@@ -55,10 +55,10 @@ foreach ($events as $event) {
       if(isset($pieces[3]) && 1 < $pieces[3] && $pieces[3] < 20){
         $maxResults = $pieces[3];
       }
-      if($pieces[4] == "date" or $pieces[4] == "rating" or $pieces[4] == "title" or $pieces[4] == "viewCount" or $pieces[4] == "videoCount" or $pieces[4] == "relevance")
-      {
-        $order = $pieces[4];
-      }
+      // if($pieces[4] == "date" or $pieces[4] == "rating" or $pieces[4] == "title" or $pieces[4] == "viewCount" or $pieces[4] == "videoCount" or $pieces[4] == "relevance")
+      // {
+      //   $order = $pieces[4];
+      // }
 
       try {
       $searchResponse = $youtube->search->listSearch('id,snippet', array(
