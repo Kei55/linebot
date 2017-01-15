@@ -46,7 +46,7 @@ foreach ($events as $event) {
 
       $searchResponse = $youtube->search->listSearch('id,snippet', array(
             'q' => $word,  //検索キーワード
-            'maxResults' => 1, //検索動画数
+            'maxResults' => 5, //検索動画数
             'order' => 'date' // 順番
           ));
 
@@ -61,7 +61,11 @@ foreach ($events as $event) {
         }
       }
 
-      $bot->replyText($event->getReplyToken(), $sendtext);
+      $bot->replyText($event->getReplyToken(), $word." ".$service);
+    }
+
+    else{
+      $bot->replyText($event->getReplyToken(), $word);
     }
   }
   else{
