@@ -41,11 +41,11 @@ foreach ($events as $event) {
   $sendtext = '';
   // $ranranmsg = array("(´･ω･`)らんらん♪","(´･ω･`)やんやん？","(´･ω･`)なになに","(´･ω･`)はあまじはあ","(´･ω･`)くそげ","(´･ω･`)らんらんは豚だから難しいことはわからないよ","(´･ω･`)なにそれ怖い");
 
-  if($startbot == "linebot")
-  // if($startbot == "ranran"　|| $startbot == "(´･ω･`)" || $startbot == "らん豚" || $startbot == "linebot" || $startbot == "ranpig")
+  // if($startbot == "linebot")
+  if($startbot == "ranran" or $startbot == "(´･ω･`)" or $startbot == "らん豚" or $startbot == "linebot" or $startbot == "ranpig")
   {
-    if($service == 'youtube'){
-
+    if($service == 'youtube')
+    {
       $client = new Google_Client();
       $client->setDeveloperKey($DEVELOPER_KEY);
       $youtube = new Google_YoutubeService($client);
@@ -55,8 +55,8 @@ foreach ($events as $event) {
       if(isset($pieces[3]) && 1 < $pieces[3] && $pieces[3] < 20){
         $maxResults = $pieces[3];
       }
-      // if(isset($pieces[4]) && ($pieces[4] == "date" || $pieces[4] == "rating" || $pieces[4] == "title" || $pieces[4] == "viewCount" || $pieces[4] == "videoCount" || $pieces[4] == "relevance"))
-       if(isset($pieces[4]))
+      if($pieces[4] == "date" or $pieces[4] == "rating" or $pieces[4] == "title" or $pieces[4] == "viewCount" or $pieces[4] == "videoCount" or $pieces[4] == "relevance")
+      // if(isset($pieces[4]))
       {
         $order = $pieces[4];
       }
@@ -111,7 +111,8 @@ foreach ($events as $event) {
       }
       $bot->replyText($event->getReplyToken(), $sendtext);
     }
-    else if($service == 'search'){
+
+    else if($service == 'search' || $service =='検索'){
 
       $maxResults = 1;  
       if(isset($pieces[3]) && 1 < $pieces[3] && $pieces[3] < 20){
@@ -132,6 +133,7 @@ foreach ($events as $event) {
       }
       $bot->replyText($event->getReplyToken(), $sendtext);
     }
+
     else{
       $bot->replyText($event->getReplyToken(), "(´･ω･`)らんらんは豚だから難しいことはわからないよ");
     }
