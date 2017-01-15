@@ -42,10 +42,10 @@ foreach ($events as $event) {
   $maxResults = 5;
   $order = 'date';
 
-  if($startbot == '(´･ω･`)'){
-    if($service == 'youtube'){
-  // if($startbot == '(´･ω･`)' || 'ranran' || 'らんらん' || 'ranpig' || 'linebot'){
-  //   if($service == 'youtube' || 'よつべ'){
+  // if($startbot == '(´･ω･`)'){
+  //   if($service == 'youtube'){
+  if($startbot == ('(´･ω･`)' || 'ranran' || 'らんらん' || 'ranpig' || 'linebot')){
+    if($service == ('youtube' || 'よつべ')){
 
       $client = new Google_Client();
       $client->setDeveloperKey($DEVELOPER_KEY);
@@ -55,7 +55,7 @@ foreach ($events as $event) {
       if(isset($pieces[3]) && 1 < $pieces[3] && $pieces[3] < 20){
         $maxResults = $pieces[3];
       }
-      if(isset($pieces[4]) && ($pieces[4] == 'date' || 'rating' || 'title' || 'viewCount' || 'videoCount' || 'relevance') )
+      if(isset($pieces[4]) && $pieces[4] == ('date' || 'rating' || 'title' || 'viewCount' || 'videoCount' || 'relevance') )
       {
         $order = $pieces[4];
       }
@@ -91,11 +91,16 @@ foreach ($events as $event) {
       }
     }
 
-    else if($service == 'image'){
+    else if($service == ('image' || '画像' || 'search')){
+
+      $searchType = '&searchType=image';
+      if($service == 'search'){
+        $searchType = "";
+      }
       //検索エンジンID
       $cx = "011043179743664306189:yvmhmv_3uqo";
       // 検索用URL
-      $url = "https://www.googleapis.com/customsearch/v1?q=" . $word . "&key=" . $DEVELOPER_KEY . "&cx=" . $cx ."&searchType=image" . "&num=5";
+      $url = "https://www.googleapis.com/customsearch/v1?q=" . $word . "&key=" . $DEVELOPER_KEY . "&cx=" . $cx .$searchType. "&num=1";
       $json = file_get_contents($url, true);
 
       $obj = json_decode($json, false);
@@ -105,11 +110,11 @@ foreach ($events as $event) {
       foreach ($obj->items as $value) {
         $sendtext .= $value->title . "\n";
         $sendtext .= $value->link . "\n";
-        $imagelink .= $value->link;
-        $imageName = "image".$i.".jpg";
+        // $imagelink .= $value->link;
+        // $imageName = "image".$i.".jpg";
         
-        $data = file_get_contents($imagelink);
-        file_put_contents('./download/'.$imageName,$data);
+        // $data = file_get_contents($imagelink);
+        // file_put_contents('./download/'.$imageName,$data);
         // $pic = './download/img.png';
         // $post_data = makeImagePostData($pic);
         $i++;
