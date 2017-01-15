@@ -95,17 +95,23 @@ foreach ($events as $event) {
       //検索エンジンID
       $cx = "011043179743664306189:yvmhmv_3uqo";
       // 検索用URL
-      $url = "https://www.googleapis.com/customsearch/v1?q=" . $word . "&key=" . $DEVELOPER_KEY . "&cx=" . $cx ."&searchType=image" . "&num=1";
+      $url = "https://www.googleapis.com/customsearch/v1?q=" . $word . "&key=" . $DEVELOPER_KEY . "&cx=" . $cx ."&searchType=image" . "&num=5";
       $json = file_get_contents($url, true);
 
       $obj = json_decode($json, false);
       $sendtext = "";
+      $imagePath ='';
       foreach ($obj->items as $value) {
         $sendtext .= $value->title . "\n";
-        $sendtext .= $value->link . "\n";
+        // $sendtext .= $value->link . "\n";
+        $imagePath .= $value->link;
+        $post_data = makeImagePostData($imagePath);
+        // $data = file_get_contents($url);
+        // file_put_contents('./download/dl.jpg',$data);
       }
 
-      $bot->replyText($event->getReplyToken(), $sendtext);
+      // $bot->replyText($event->getReplyToken(), $sendtext);
+      $bot->replyText($event->getReplyToken(), $post_data);
     }
 
     else{
@@ -117,4 +123,14 @@ foreach ($events as $event) {
   }
 }
 
+
+function makeImagePostData($imagePath){
+  $response_format_text = [
+    "type" => "image",
+    "originalContentUrl" => $imagePath,
+    "previewImageUrl" => $imagePath
+  ];
+
+  return $response_format_text;
+}
  ?>
