@@ -43,14 +43,14 @@ foreach ($events as $event) {
 
   if($startbot == "ranran" or $startbot == "(´･ω･`)" or $startbot == "らん豚" or $startbot == "linebot" or $startbot == "ranpig")
   {
-    if($service == 'youtube' and isset($word))
+    if(($service == 'youtube' or $service == '動画') and isset($word))
     {
       $client = new Google_Client();
       $client->setDeveloperKey($DEVELOPER_KEY);
       $youtube = new Google_YoutubeService($client);
 
       $maxResults = 1;
-      $order = "date";
+      $order = 'date';
       if(isset($pieces[3]) and 1 < $pieces[3] and $pieces[3] < 20)
       {
         $maxResults = $pieces[3];
@@ -91,7 +91,8 @@ foreach ($events as $event) {
     else if(($service == 'image' || $service == '画像') and isset($word)){
 
       $maxResults = 1;
-      if(isset($pieces[3]) and 1 < $pieces[3] and $pieces[3] < 20){
+      if(isset($pieces[3]) and 1 < $pieces[3] and $pieces[3] < 20)
+      {
         $maxResults = $pieces[3];
       }
       //検索エンジンID
@@ -138,7 +139,7 @@ foreach ($events as $event) {
   }
 
   else {
-    $bot->replyText($event->getReplyToken(), $text);
+    // $bot->replyText($event->getReplyToken(), $text);
   }
 }
 
