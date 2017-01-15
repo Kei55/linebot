@@ -39,23 +39,24 @@ foreach ($events as $event) {
   $service = $pieces[2];
   $sendtext = '';
 
-  $maxResults = 5;
-  $order = 'date';
+  
+ 
 
   // if($startbot == '(´･ω･`)'){
   //   if($service == 'youtube'){
-  if($startbot == ('(´･ω･`)' || 'ranran' || 'らんらん' || 'ranpig' || 'linebot')){
-    if($service == ('youtube' || 'よつべ')){
+  if($startbot == '(´･ω･`)' || $startbot == 'ranran' || $startbot == 'らんらん' || $startbot == 'ranpig' || $startbot == 'linebot'){
+    if($service == 'youtube' || $startbot == 'よつべ'){
 
       $client = new Google_Client();
       $client->setDeveloperKey($DEVELOPER_KEY);
       $youtube = new Google_YoutubeService($client);
 
-
+      $maxResults = 5;
+      $order = 'date';
       if(isset($pieces[3]) && 1 < $pieces[3] && $pieces[3] < 20){
         $maxResults = $pieces[3];
       }
-      if(isset($pieces[4]) && $pieces[4] == ('date' || 'rating' || 'title' || 'viewCount' || 'videoCount' || 'relevance') )
+      if(isset($pieces[4]) && ($pieces[4] == 'date' || $pieces[4] == 'rating' || $pieces[4] == 'title' || $pieces[4] == 'viewCount' || $pieces[4] == 'videoCount' || $pieces[4] == 'relevance') )
       {
         $order = $pieces[4];
       }
@@ -91,22 +92,21 @@ foreach ($events as $event) {
       }
     }
 
-    else if($service == ('image' || '画像' || 'search')){
+    else if($service == 'image' || $service == '画像'){
 
-      $searchType = '&searchType=image';
-      if($service == 'search'){
-        $searchType = "";
+      $maxResults = 1;
+      if(isset($pieces[3]) && 1 < $pieces[3] && $pieces[3] < 20){
+        $maxResults = $pieces[3];
       }
       //検索エンジンID
       $cx = "011043179743664306189:yvmhmv_3uqo";
       // 検索用URL
-      $url = "https://www.googleapis.com/customsearch/v1?q=" . $word . "&key=" . $DEVELOPER_KEY . "&cx=" . $cx .$searchType. "&num=1";
+      $url = "https://www.googleapis.com/customsearch/v1?q=" . $word . "&key=" . $DEVELOPER_KEY . "&cx=" . $cx ."&searchType=image". "&num=".$maxResults;
       $json = file_get_contents($url, true);
 
       $obj = json_decode($json, false);
       $sendtext = "";
       $imagePath ='';
-      $i = 1;
       foreach ($obj->items as $value) {
         $sendtext .= $value->title . "\n";
         $sendtext .= $value->link . "\n";
@@ -117,17 +117,38 @@ foreach ($events as $event) {
         // file_put_contents('./download/'.$imageName,$data);
         // $pic = './download/img.png';
         // $post_data = makeImagePostData($pic);
-        $i++;
       }
 
       $bot->replyText($event->getReplyToken(), $sendtext);
       // $bot->replyText($event->getReplyToken(), $post_data);
     }
+    else if($service == 'search'){
+
+      $maxResults = 5;
+      if(isset($pieces[3]) && 1 < $pieces[3] && $pieces[3] < 20){
+        $maxResults = $pieces[3];
+      }
+      //検索エンジンID
+      $cx = "011043179743664306189:yvmhmv_3uqo";
+      // 検索用URL
+      $url = "https://www.googleapis.com/customsearch/v1?q=" . $word . "&key=" . $DEVELOPER_KEY . "&cx=" . $cx ."&num=".$maxResults;
+      $json = file_get_contents($url, true);
+
+      $obj = json_decode($json, false);
+      $sendtext = "";
+      $imagePath ='';
+      foreach ($obj->items as $value) {
+        $sendtext .= $value->title . "\n";
+        $sendtext .= $value->link . "\n";
+      }
+
+      $bot->replyText($event->getReplyToken(), $sendtext);
 
     else{
       $bot->replyText($event->getReplyToken(), "(´･ω･`)らんらん？");
     }
   }
+
   else {
     $bot->replyText($event->getReplyToken(), $text);
   }
