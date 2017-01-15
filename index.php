@@ -33,14 +33,14 @@ foreach ($events as $event) {
   }
   $text = $event->getText();
   $pieces = explode(" ", $text);
-  $bot = $pieces[0];
+  $startbot = $pieces[0];
   $word = $pieces[1];
   $service = $pieces[2];
 
   $maxResults = 5;
   $order = 'date';
- // or $bot == 'ranran' or $bot == 'らんらん' or $bot == 'ranpig' or $bot == 'linebot'
-  if($bot == '(´･ω･`)'){
+
+  if($startbot == '(´･ω･`)' or $startbot == 'ranran' or $startbot == 'らんらん' or $startbot == 'ranpig' or $startbot == 'linebot'){
     $bot->replyText($event->getReplyToken(), "(´･ω･`)らんらん？");
     if($service == 'youtube' or $service == 'よつべ'){
 
@@ -74,13 +74,10 @@ foreach ($events as $event) {
         $bot->replyText($event->getReplyToken(), "error");
       }
     }
-
+    
     else{
       $bot->replyText($event->getReplyToken(), "error");
     }
-  }
-  else{
-    $bot->replyText($event->getReplyToken(), $text);
   }
 }
 
