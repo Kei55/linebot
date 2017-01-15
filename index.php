@@ -3,7 +3,6 @@
 require_once __DIR__ . '/vendor/autoload.php';
 require_once 'google-api-php-client/src/Google_Client.php';
 require_once 'google-api-php-client/src/contrib/Google_YouTubeService.php';
-require_once 'TwitterAppOAuth.php';
 
 $DEVELOPER_KEY = 'AIzaSyBN8gvRSd8k_NuqBKF4ITdGxbDfLnNocuw';
 
@@ -43,7 +42,6 @@ foreach ($events as $event) {
   $order = 'date';
 
   if($startbot == '(´･ω･`)' || 'ranran' || 'らんらん' || 'ranpig' || 'linebot'){
-    // $bot->replyText($event->getReplyToken(), "(´･ω･`)らんらん？");
     if($service == 'youtube' || 'よつべ'){
 
       $client = new Google_Client();
@@ -89,7 +87,7 @@ foreach ($events as $event) {
         $bot->replyText($event->getReplyToken(), "error");
       }
     }
-    else if($service == 'image' || '画像'){
+    else{
       //検索エンジンID
       $cx = "011043179743664306189:yvmhmv_3uqo";
       // 検索用URL
@@ -104,9 +102,6 @@ foreach ($events as $event) {
       }
 
       $bot->replyText($event->getReplyToken(), $sendtext);
-    }
-    else{
-      $bot->replyText($event->getReplyToken(), "error");
     }
   }
   else {
