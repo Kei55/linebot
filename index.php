@@ -41,7 +41,7 @@ foreach ($events as $event) {
   $sendtext = '';
   // $ranranmsg = array("(´･ω･`)らんらん♪","(´･ω･`)やんやん？","(´･ω･`)なになに","(´･ω･`)はあまじはあ","(´･ω･`)くそげ","(´･ω･`)らんらんは豚だから難しいことはわからないよ","(´･ω･`)なにそれ怖い");
 
-  if($startbot == "ranran" or $startbot == "linebot" or $startbot == "(´･ω･`)")
+  if($startbot == "ranran" or $startbot == "(´･ω･`)" or $startbot == "らん豚" or $startbot == "linebot" or $startbot == "ranpig")
   {
     if(($service == 'youtube' or $service == '動画') and isset($word))
     {
@@ -55,14 +55,14 @@ foreach ($events as $event) {
       {
         $maxResults = $pieces[3];
       }
-      // if($pieces[4] == "date" or $pieces[4] == "rating" or $pieces[4] == "title" or $pieces[4] == "viewCount" or $pieces[4] == "videoCount" or $pieces[4] == "relevance")
-      // {
-      //   $order = $pieces[4];
-      // }
+      if(isset($pieces[4]) and ($pieces[4] == "date" or $pieces[4] == "rating" or $pieces[4] == "title" or $pieces[4] == "viewCount" or $pieces[4] == "videoCount" or $pieces[4] == "relevance"))
+      {
+        $order = $pieces[4];
+      }
 
       try {
       $searchResponse = $youtube->search->listSearch('id,snippet', array(
-            'q' => $text,  //検索キーワード
+            'q' => $word,  //検索キーワード
             'maxResults' => $maxResults, //検索動画数
             'order' => $order // 順番
           ));
