@@ -39,13 +39,10 @@ foreach ($events as $event) {
   $service = $pieces[2];
   $sendtext = '';
 
-  
- 
-
-  // if($startbot == '(´･ω･`)'){
-  //   if($service == 'youtube'){
-  if($startbot == '(´･ω･`)' || $startbot == 'ranran' || $startbot == 'らんらん' || $startbot == 'ranpig' || $startbot == 'linebot'){
-    if($service == 'youtube' || $startbot == 'よつべ'){
+  if($startbot == '(´･ω･`)'){
+    if($service == 'youtube'){
+  // if($startbot == '(´･ω･`)' || $startbot == 'ranran' || $startbot == 'らんらん' || $startbot == 'ranpig' || $startbot == 'linebot'){
+  //   if($service == 'youtube' || $startbot == 'よつべ'){
 
       $client = new Google_Client();
       $client->setDeveloperKey($DEVELOPER_KEY);
@@ -53,13 +50,13 @@ foreach ($events as $event) {
 
       $maxResults = 5;
       $order = 'date';
-      if(isset($pieces[3]) && 1 < $pieces[3] && $pieces[3] < 20){
-        $maxResults = $pieces[3];
-      }
-      if(isset($pieces[4]) && ($pieces[4] == 'date' || $pieces[4] == 'rating' || $pieces[4] == 'title' || $pieces[4] == 'viewCount' || $pieces[4] == 'videoCount' || $pieces[4] == 'relevance') )
-      {
-        $order = $pieces[4];
-      }
+      // if(isset($pieces[3]) && 1 < $pieces[3] && $pieces[3] < 20){
+      //   $maxResults = $pieces[3];
+      // }
+      // if(isset($pieces[4]) && ($pieces[4] == 'date' || $pieces[4] == 'rating' || $pieces[4] == 'title' || $pieces[4] == 'viewCount' || $pieces[4] == 'videoCount' || $pieces[4] == 'relevance') )
+      // {
+      //   $order = $pieces[4];
+      // }
 
       try {
       $searchResponse = $youtube->search->listSearch('id,snippet', array(
@@ -95,9 +92,9 @@ foreach ($events as $event) {
     else if($service == 'image' || $service == '画像'){
 
       $maxResults = 1;
-      if(isset($pieces[3]) && 1 < $pieces[3] && $pieces[3] < 20){
-        $maxResults = $pieces[3];
-      }
+      // if(isset($pieces[3]) && 1 < $pieces[3] && $pieces[3] < 20){
+      //   $maxResults = $pieces[3];
+      // }
       //検索エンジンID
       $cx = "011043179743664306189:yvmhmv_3uqo";
       // 検索用URL
@@ -124,10 +121,10 @@ foreach ($events as $event) {
     }
     else if($service == 'search'){
 
-      $maxResults = 5;
-      if(isset($pieces[3]) && 1 < $pieces[3] && $pieces[3] < 20){
-        $maxResults = $pieces[3];
-      }
+      $maxResults = 5;  
+      // if(isset($pieces[3]) && 1 < $pieces[3] && $pieces[3] < 20){
+      //   $maxResults = $pieces[3];
+      // }
       //検索エンジンID
       $cx = "011043179743664306189:yvmhmv_3uqo";
       // 検索用URL
