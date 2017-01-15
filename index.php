@@ -65,9 +65,7 @@ foreach ($events as $event) {
             'order' => $order // 順番
           ));
 
-      
       $i = 1;
-
       foreach ($searchResponse['items'] as $searchResult) {
         switch ($searchResult['id']['kind']) {
           case 'youtube#video':
@@ -107,17 +105,8 @@ foreach ($events as $event) {
       foreach ($obj->items as $value) {
         $sendtext .= $value->title . "\n";
         $sendtext .= $value->link . "\n";
-        // $imagelink .= $value->link;
-        // $imageName = "image".$i.".jpg";
-        
-        // $data = file_get_contents($imagelink);
-        // file_put_contents('./download/'.$imageName,$data);
-        // $pic = './download/img.png';
-        // $post_data = makeImagePostData($pic);
       }
-
       $bot->replyText($event->getReplyToken(), $sendtext);
-      // $bot->replyText($event->getReplyToken(), $post_data);
     }
     else if($service == 'search'){
 
@@ -138,9 +127,8 @@ foreach ($events as $event) {
         $sendtext .= $value->title . "\n";
         $sendtext .= $value->link . "\n";
       }
-
       $bot->replyText($event->getReplyToken(), $sendtext);
-
+    }
     else{
       $bot->replyText($event->getReplyToken(), "(´･ω･`)らんらん？");
     }
