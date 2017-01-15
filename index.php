@@ -33,7 +33,7 @@ foreach ($events as $event) {
     continue;
   }
   $text = $event->getText();
-  $text = mb_convert_kana($text, 's');
+  // $text = mb_convert_kana($text, 's');
   $pieces = explode(" ", $text);
   $startbot = $pieces[0];
   // $botorder = array("ranran","(´･ω･`)","らん豚","linebot","ranpig");
@@ -56,10 +56,10 @@ foreach ($events as $event) {
       {
         $maxResults = $pieces[3];
       }
-      if($pieces[4] == "date" or $pieces[4] == "rating" or $pieces[4] == "title" or $pieces[4] == "viewCount" or $pieces[4] == "videoCount" or $pieces[4] == "relevance")
-      {
-        $order = $pieces[4];
-      }
+      // if($pieces[4] == "date" or $pieces[4] == "rating" or $pieces[4] == "title" or $pieces[4] == "viewCount" or $pieces[4] == "videoCount" or $pieces[4] == "relevance")
+      // {
+      //   $order = $pieces[4];
+      // }
 
       try {
       $searchResponse = $youtube->search->listSearch('id,snippet', array(
@@ -138,9 +138,9 @@ foreach ($events as $event) {
     }
   }
 
-  // else {
-  //   // $bot->replyText($event->getReplyToken(), $text);
-  // }
+  else {
+    // $bot->replyText($event->getReplyToken(), $text);
+  }
 }
 
  ?>
