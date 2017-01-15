@@ -37,7 +37,10 @@ foreach ($events as $event) {
   $word = $pieces[1];
   $service = $pieces[2];
 
-  if($bot == '(´･ω･`)' or $bot == 'ranran' or $bot == 'らんらん' or $bot == 'ranpig' or $bot == 'linebot'){
+  $maxResults = 5;
+  $order = 'date';
+ // or $bot == 'ranran' or $bot == 'らんらん' or $bot == 'ranpig' or $bot == 'linebot'
+  if($bot == '(´･ω･`)'){
     if($service == 'youtube' or $service == 'よつべ'){
 
       $client = new Google_Client();
@@ -47,8 +50,8 @@ foreach ($events as $event) {
       try {
       $searchResponse = $youtube->search->listSearch('id,snippet', array(
             'q' => $text,  //検索キーワード
-            'maxResults' => 5, //検索動画数
-            'order' => 'date' // 順番
+            'maxResults' => $maxResults, //検索動画数
+            'order' => $order // 順番
           ));
 
       $sendtext = '';
