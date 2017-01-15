@@ -41,7 +41,9 @@ foreach ($events as $event) {
   $sendtext = '';
   // $ranranmsg = array("(´･ω･`)らんらん♪","(´･ω･`)やんやん？","(´･ω･`)なになに","(´･ω･`)はあまじはあ","(´･ω･`)くそげ","(´･ω･`)らんらんは豚だから難しいことはわからないよ","(´･ω･`)なにそれ怖い");
 
-  if($startbot == "ranran"　|| $startbot == "(´･ω･`)" || $startbot == "らん豚" || $startbot == "linebot" || $startbot == "ranpig"){
+  if($startbot == "linebot")
+  // if($startbot == "ranran"　|| $startbot == "(´･ω･`)" || $startbot == "らん豚" || $startbot == "linebot" || $startbot == "ranpig")
+  {
     if($service == 'youtube'){
 
       $client = new Google_Client();
@@ -53,7 +55,8 @@ foreach ($events as $event) {
       if(isset($pieces[3]) && 1 < $pieces[3] && $pieces[3] < 20){
         $maxResults = $pieces[3];
       }
-      if(isset($pieces[4]) && ($pieces[4] == "date" || $pieces[4] == "rating" || $pieces[4] == "title" || $pieces[4] == "viewCount" || $pieces[4] == "videoCount" || $pieces[4] == "relevance"))
+      // if(isset($pieces[4]) && ($pieces[4] == "date" || $pieces[4] == "rating" || $pieces[4] == "title" || $pieces[4] == "viewCount" || $pieces[4] == "videoCount" || $pieces[4] == "relevance"))
+       if(isset($pieces[4]))
       {
         $order = $pieces[4];
       }
