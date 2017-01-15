@@ -33,8 +33,8 @@ foreach ($events as $event) {
     continue;
   }
   $text = $event->getText();
-  // $text = mb_convert_kana($text, "s");
-  $pieces = explode(" ", $text);
+  $text_s = mb_convert_kana($text, "s");
+  $pieces = explode(" ", $text_s);
   $startbot = $pieces[0];
   // $botorder = array("ranran","(´･ω･`)","らん豚","linebot","ranpig");
   $word = $pieces[1];
@@ -111,7 +111,7 @@ foreach ($events as $event) {
       $bot->replyText($event->getReplyToken(), $sendtext);
     }
 
-    else if($service == 'search' or $service == '検索' or isset($word)){
+    else if(($service == 'search' or $service == '検索' ) and isset($word)) {
 
       $maxResults = 1;  
       if(isset($pieces[3]) && 1 < $pieces[3] && $pieces[3] < 20){
