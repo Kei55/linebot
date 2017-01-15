@@ -41,7 +41,7 @@ foreach ($events as $event) {
   $order = 'date';
 
   if($startbot == '(´･ω･`)' or $startbot == 'ranran' or $startbot == 'らんらん' or $startbot == 'ranpig' or $startbot == 'linebot'){
-    $bot->replyText($event->getReplyToken(), "(´･ω･`)らんらん？");
+    // $bot->replyText($event->getReplyToken(), "(´･ω･`)らんらん？");
     if($service == 'youtube' or $service == 'よつべ'){
 
       $client = new Google_Client();
