@@ -40,14 +40,23 @@ foreach ($events as $event) {
   $maxResults = 5;
   $order = 'date';
 
-  if($startbot == '(´･ω･`)' or $startbot == 'ranran' or $startbot == 'らんらん' or $startbot == 'ranpig' or $startbot == 'linebot'){
+  if($startbot == '(´･ω･`)' || 'ranran' || 'らんらん' || 'ranpig' || 'linebot'){
     // $bot->replyText($event->getReplyToken(), "(´･ω･`)らんらん？");
-    if($service == 'youtube' or $service == 'よつべ'){
+    if($service == 'youtube' || 'よつべ'){
 
       $client = new Google_Client();
       $client->setDeveloperKey($DEVELOPER_KEY_YOUTUBE);
       $youtube = new Google_YoutubeService($client);
 
+
+      if(!empty($pieces[3]) && 1 <$pieces[3] && $pieces[3] < 20){
+        $maxResults = $pieces[3];
+      }
+      if(!empty($pieces[4]) && $pieces[4] == 'date' || 'rating' || 'title' || 'viewCount' || 'videoCount' || 'relevance')
+      {
+        $order = $pieces[4];
+      }
+      
       try {
       $searchResponse = $youtube->search->listSearch('id,snippet', array(
             'q' => $text,  //検索キーワード
@@ -56,10 +65,13 @@ foreach ($events as $event) {
           ));
 
       $sendtext = '';
+      $i = 1;
 
       foreach ($searchResponse['items'] as $searchResult) {
+        $i++;
         switch ($searchResult['id']['kind']) {
           case 'youtube#video':
+            $sendtext .= $i.'.';
             $sendtext .= $searchResult['snippet']['title'] . "\n";
             $sendtext .= "http://www.youtube.com/watch?v=" . $searchResult['id']['videoId'] . "\n";
           break;
@@ -74,7 +86,7 @@ foreach ($events as $event) {
         $bot->replyText($event->getReplyToken(), "error");
       }
     }
-    
+
     else{
       $bot->replyText($event->getReplyToken(), "error");
     }
