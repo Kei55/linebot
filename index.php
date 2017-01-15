@@ -37,16 +37,7 @@ foreach ($events as $event) {
   $startbot = $pieces[0];
   $word = $pieces[1];
   $service = $pieces[2];
-
-  if(isset($pieces[3]) and is_numeric(($pieces[3]))
-  {
-    $num = $pieces[3];
-  }
-  else if(isset($pieces[3]))
-  {
-    $num = intval(mb_convert_kana(strval($pieces[3]), "a"));
-  }
-
+  
   $sendtext = '';
 
 
@@ -61,9 +52,9 @@ foreach ($events as $event) {
       $maxResults = 1;
       $order = 'date';
       
-      if(isset($num) and 1 < $num and $num < 20)
+      if(isset($pieces[3]) and 1 < $pieces[3] and $pieces[3] < 20)
       {
-        $maxResults = $num;
+        $maxResults = $pieces[3];
       }
       if(isset($pieces[4]) and ($pieces[4] == "date" or $pieces[4] == "rating" or $pieces[4] == "title" or $pieces[4] == "viewCount" or $pieces[4] == "videoCount" or $pieces[4] == "relevance"))
       {
