@@ -35,11 +35,10 @@ foreach ($events as $event) {
   $text = $event->getText();
   $pieces = preg_split('/[\s|\x{3000}]+/u', $text);
   $startbot = $pieces[0];
-  // $botorder = array("ranran","(´･ω･`)","らん豚","linebot","ranpig");
   $word = $pieces[1];
   $service = $pieces[2];
   $sendtext = '';
-  // $ranranmsg = array("(´･ω･`)らんらん♪","(´･ω･`)やんやん？","(´･ω･`)なになに","(´･ω･`)はあまじはあ","(´･ω･`)くそげ","(´･ω･`)らんらんは豚だから難しいことはわからないよ","(´･ω･`)なにそれ怖い");
+
 
   if($startbot == "ranran" or $startbot == "(´･ω･`)" or $startbot == "らん豚" or $startbot == "linebot" or $startbot == "ranpig")
   {
@@ -51,9 +50,13 @@ foreach ($events as $event) {
 
       $maxResults = 1;
       $order = 'date';
-      if(isset($pieces[3]) and 1 < $pieces[3] and $pieces[3] < 20)
+      if(isset($pieces[3]))
       {
-        $maxResults = $pieces[3];
+        $num = mb_convert_kana($pieces[3], "a");
+        if(1 < $num and $num < 20)
+        {
+          $maxResults = $num;
+        }
       }
       if(isset($pieces[4]) and ($pieces[4] == "date" or $pieces[4] == "rating" or $pieces[4] == "title" or $pieces[4] == "viewCount" or $pieces[4] == "videoCount" or $pieces[4] == "relevance"))
       {
