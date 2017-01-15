@@ -48,15 +48,15 @@ foreach ($events as $event) {
       $client->setDeveloperKey($DEVELOPER_KEY);
       $youtube = new Google_YoutubeService($client);
 
-      $maxResults = 5;
+      $maxResults = 1;
       $order = 'date';
-      // if(isset($pieces[3]) && 1 < $pieces[3] && $pieces[3] < 20){
-      //   $maxResults = $pieces[3];
-      // }
-      // if(isset($pieces[4]) && ($pieces[4] == 'date' || $pieces[4] == 'rating' || $pieces[4] == 'title' || $pieces[4] == 'viewCount' || $pieces[4] == 'videoCount' || $pieces[4] == 'relevance') )
-      // {
-      //   $order = $pieces[4];
-      // }
+      if(isset($pieces[3]) && 1 < $pieces[3] && $pieces[3] < 20){
+        $maxResults = $pieces[3];
+      }
+      if(isset($pieces[4]) && ($pieces[4] == 'date' || $pieces[4] == 'rating' || $pieces[4] == 'title' || $pieces[4] == 'viewCount' || $pieces[4] == 'videoCount' || $pieces[4] == 'relevance') )
+      {
+        $order = $pieces[4];
+      }
 
       try {
       $searchResponse = $youtube->search->listSearch('id,snippet', array(
@@ -64,7 +64,7 @@ foreach ($events as $event) {
             'maxResults' => $maxResults, //検索動画数
             'order' => $order // 順番
           ));
-
+      
       $i = 1;
       foreach ($searchResponse['items'] as $searchResult) {
         switch ($searchResult['id']['kind']) {
@@ -90,9 +90,9 @@ foreach ($events as $event) {
     else if($service == 'image' || $service == '画像'){
 
       $maxResults = 1;
-      // if(isset($pieces[3]) && 1 < $pieces[3] && $pieces[3] < 20){
-      //   $maxResults = $pieces[3];
-      // }
+      if(isset($pieces[3]) && 1 < $pieces[3] && $pieces[3] < 20){
+        $maxResults = $pieces[3];
+      }
       //検索エンジンID
       $cx = "011043179743664306189:yvmhmv_3uqo";
       // 検索用URL
@@ -110,10 +110,10 @@ foreach ($events as $event) {
     }
     else if($service == 'search'){
 
-      $maxResults = 5;  
-      // if(isset($pieces[3]) && 1 < $pieces[3] && $pieces[3] < 20){
-      //   $maxResults = $pieces[3];
-      // }
+      $maxResults = 1;  
+      if(isset($pieces[3]) && 1 < $pieces[3] && $pieces[3] < 20){
+        $maxResults = $pieces[3];
+      }
       //検索エンジンID
       $cx = "011043179743664306189:yvmhmv_3uqo";
       // 検索用URL
