@@ -101,16 +101,18 @@ foreach ($events as $event) {
       $obj = json_decode($json, false);
       $sendtext = "";
       $imagePath ='';
+      $i = 1;
       foreach ($obj->items as $value) {
         $sendtext .= $value->title . "\n";
         $sendtext .= $value->link . "\n";
-        // $imagePath .= $value->link;
-
+        $imagelink .= $value->link;
+        $imageName = "image".$i.".jpg";
         
-        // $data = file_get_contents($imagePath);
-        // file_put_contents('./download/img.png',$data);
+        $data = file_get_contents($imagelink);
+        file_put_contents('./download/'.$imageName,$data);
         // $pic = './download/img.png';
         // $post_data = makeImagePostData($pic);
+        $i++;
       }
 
       $bot->replyText($event->getReplyToken(), $sendtext);
