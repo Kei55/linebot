@@ -28,7 +28,9 @@ foreach ($events as $event) {
     continue;
   }
   $text = $event->getText();
-  $bot->replyText($event->getReplyToken(), $text);
+  $pieces = explode(" ", $text);
+  $word = $pieces[1];
+  $bot->replyText($event->getReplyToken(), $word);
 }
 
  ?>
