@@ -41,7 +41,7 @@ foreach ($events as $event) {
   $sendtext = '';
   // $ranranmsg = array("(´･ω･`)らんらん♪","(´･ω･`)やんやん？","(´･ω･`)なになに","(´･ω･`)はあまじはあ","(´･ω･`)くそげ","(´･ω･`)らんらんは豚だから難しいことはわからないよ","(´･ω･`)なにそれ怖い");
 
-  if($startbot == "ranran" or $startbot == "(´･ω･`)" or $startbot == "らん豚" or $startbot == "linebot" or $startbot == "ranpig")
+  if($startbot == "ranran" or $startbot == "linebot" or $startbot == "(´･ω･`)")
   {
     if(($service == 'youtube' or $service == '動画') and isset($word))
     {
